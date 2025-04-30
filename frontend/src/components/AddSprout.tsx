@@ -35,11 +35,11 @@ function AddSprout({ onClose }: Props) {
       }
 
       // for prod
-      alert("Sprout added successfully!");
+      alert("成功输入！祝你成功抽中想要的芽豆豆！");
       onClose(true);
 
       // for fast insert during dev
-      // setSn("");
+      // setSn((prevSn) => prevSn.slice(0, 4));
     } catch (error) {
       alert(error);
     }
