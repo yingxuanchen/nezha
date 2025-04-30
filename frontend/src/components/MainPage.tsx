@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import AddSprout from "./AddSprout";
+import { backendUrl } from "../utils/utils";
 
 interface Sprout {
   sn: string;
@@ -15,7 +16,7 @@ function MainPage() {
   }, []);
 
   const getSprouts = useCallback(async () => {
-    const res = await fetch("/api/sprouts");
+    const res = await fetch(`${backendUrl}/api/sprouts`);
     const data = await res.json();
     setSprouts(data);
   }, []);

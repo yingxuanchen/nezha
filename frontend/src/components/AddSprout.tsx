@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDialogClickOutside } from "../hooks/useDialogClickOutside";
+import { backendUrl } from "../utils/utils";
 
 const types = ["少年哪吒", "笑笑哪吒", "坏坏哪吒", "战斗哪吒", "灵珠版哪吒", "笑笑敖丙", "委屈敖丙"];
 
@@ -22,7 +23,7 @@ function AddSprout({ onClose }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/sprouts", {
+      const res = await fetch(`${backendUrl}/api/sprouts`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sn, type }),
