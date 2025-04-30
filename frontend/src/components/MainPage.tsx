@@ -32,7 +32,7 @@ function MainPage() {
     <>
       {openModal && <AddSprout onClose={handleCloseModal} />}
       <h3>哪吒芽豆豆编码</h3>
-      <button onClick={() => setOpenModal(true)}>+</button>
+      <button onClick={() => setOpenModal(true)}>加入已确认编码</button>
       <table>
         <thead>
           <tr>

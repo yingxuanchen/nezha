@@ -10,7 +10,7 @@ interface Props {
 
 function AddSprout({ onClose }: Props) {
   const [sn, setSn] = useState("");
-  const [type, setType] = useState(types[0]);
+  const [type, setType] = useState("");
 
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -49,6 +49,18 @@ function AddSprout({ onClose }: Props) {
     <dialog ref={dialogRef}>
       <form className="container" onSubmit={handleSubmit}>
         <div>
+          <select name="type" required value={type} onChange={(e) => setType(e.target.value)}>
+            <option disabled value="">
+              -- 请选择已确认款式 --
+            </option>
+            {types.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
           <input
             name="sn"
             type="text"
@@ -58,15 +70,6 @@ function AddSprout({ onClose }: Props) {
             pattern="[0-9]{8}"
             title="Should be 8 digits"
           />
-        </div>
-        <div>
-          <select name="type" required value={type} onChange={(e) => setType(e.target.value)}>
-            {types.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
         </div>
         <button type="submit">Add</button>
       </form>
