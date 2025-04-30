@@ -34,7 +34,12 @@ async function connectDB() {
 app.get("/api/sprouts", async (req, res) => {
   try {
     await connectDB();
-    const sprouts = await db.collection("sprouts").find({}).sort({ sn: 1 }).toArray();
+    const sprouts = await db
+      .collection("sprouts")
+      .find({})
+      .project({ _id: 0, sn: 1, type: 1 })
+      .sort({ sn: 1 })
+      .toArray();
     res.json(sprouts);
   } catch (error) {
     console.error(error);
@@ -51,7 +56,7 @@ app.post("/api/sprouts", async (req, res) => {
     if (existing) {
       return res.status(400).send("编码已经存在");
     }
-    await db.collection("sprouts").insertOne({ type, sn });
+    await db.collection("sprouts").insertOne({ type, sn, createdAt: new Date() });
     res.status(200).send("Serial number added");
   } catch (error) {
     console.error(error);
