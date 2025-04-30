@@ -36,8 +36,8 @@ function MainPage() {
       <table>
         <thead>
           <tr>
-            <th>SN</th>
-            <th>Type</th>
+            <th>编码</th>
+            <th>款式</th>
           </tr>
         </thead>
         <tbody>

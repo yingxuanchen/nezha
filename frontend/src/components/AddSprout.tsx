@@ -35,7 +35,7 @@ function AddSprout({ onClose }: Props) {
       }
 
       // for prod
-      alert("成功输入！祝你成功抽中想要的芽豆豆！");
+      alert("成功加入编码！祝你成功抽中想要的芽豆豆！");
       onClose(true);
 
       // for fast insert during dev
@@ -49,7 +49,13 @@ function AddSprout({ onClose }: Props) {
     <dialog ref={dialogRef}>
       <form className="container" onSubmit={handleSubmit}>
         <div>
-          <select name="type" required value={type} onChange={(e) => setType(e.target.value)}>
+          <select
+            name="type"
+            required
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            style={{ fontSize: "1rem" }}
+          >
             <option disabled value="">
               -- 请选择已确认款式 --
             </option>
@@ -69,9 +75,11 @@ function AddSprout({ onClose }: Props) {
             required
             pattern="[0-9]{8}"
             title="Should be 8 digits"
+            style={{ fontSize: "1rem" }}
+            placeholder="编码 (8位数字)"
           />
         </div>
-        <button type="submit">Add</button>
+        <button type="submit">加入</button>
       </form>
     </dialog>
   );
