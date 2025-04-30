@@ -48,7 +48,7 @@ app.post("/api/sprouts", async (req, res) => {
     await connectDB();
     const existing = await db.collection("sprouts").findOne({ sn });
     if (existing) {
-      return res.status(400).send("Serial number already exists");
+      return res.status(400).send("编码已经存在");
     }
     await db.collection("sprouts").insertOne({ type, sn });
     res.status(200).send("Serial number added");
