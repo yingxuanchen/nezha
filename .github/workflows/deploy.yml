@@ -22,7 +22,7 @@ jobs:
           node-version: "22"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build
         run: npm run build
@@ -31,7 +31,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
           publish_dir: frontend/dist
+          publish_branch: gh-pages
           user_name: yingxuanchen
           user_email: yingxuanchen@hotmail.com
+          force_orphan: true # 🧹 ensures fresh branch, no merge history issues
