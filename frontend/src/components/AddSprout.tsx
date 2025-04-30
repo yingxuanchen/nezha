@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDialogClickOutside } from "../hooks/useDialogClickOutside";
-import { backendUrl } from "../utils/utils";
-
-const types = ["少年哪吒", "笑笑哪吒", "坏坏哪吒", "战斗哪吒", "灵珠版哪吒", "笑笑敖丙", "委屈敖丙"];
+import { backendUrl, types } from "../utils/utils";
 
 interface Props {
   onClose: (toRefresh: boolean) => void;
@@ -60,8 +58,8 @@ function AddSprout({ onClose }: Props) {
               -- 请选择已确认款式 --
             </option>
             {types.map((type) => (
-              <option key={type} value={type}>
-                {type}
+              <option key={type.name} value={type.name}>
+                {type.name}
               </option>
             ))}
           </select>

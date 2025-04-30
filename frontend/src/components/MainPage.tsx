@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import AddSprout from "./AddSprout";
-import { backendUrl } from "../utils/utils";
+import { backendUrl, types } from "../utils/utils";
+import { useSystemTheme } from "../hooks/useSystemTheme";
 
 interface Sprout {
   sn: string;
@@ -8,6 +9,8 @@ interface Sprout {
 }
 
 function MainPage() {
+  const systemTheme = useSystemTheme();
+
   const [openModal, setOpenModal] = useState(false);
   const [sprouts, setSprouts] = useState<Sprout[]>([]);
 
@@ -41,12 +44,17 @@ function MainPage() {
           </tr>
         </thead>
         <tbody>
-          {sprouts.map((sprout) => (
-            <tr key={sprout.sn}>
-              <td>{sprout.sn}</td>
-              <td>{sprout.type}</td>
-            </tr>
-          ))}
+          {sprouts.map((sprout) => {
+            const type = types.find((type) => type.name === sprout.type);
+            const bgColor =
+              type === undefined ? "transparent" : systemTheme === "dark" ? type.darkBgColor : type.lightBgColor;
+            return (
+              <tr key={sprout.sn} style={{ backgroundColor: bgColor }}>
+                <td>{sprout.sn}</td>
+                <td>{sprout.type}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </>
