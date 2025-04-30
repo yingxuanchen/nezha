@@ -31,6 +31,7 @@ function MainPage() {
   return (
     <>
       {openModal && <AddSprout onClose={handleCloseModal} />}
+      <h3>哪吒芽豆豆编码</h3>
       <button onClick={() => setOpenModal(true)}>+</button>
       <table>
         <thead>
