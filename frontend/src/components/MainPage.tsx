@@ -1,25 +1,52 @@
-import { useEffect, useRef, useState } from "react";
-import { useDialogClickOutside } from "../hooks/useDialogClickOutside";
+import { useCallback, useEffect, useState } from "react";
+import AddSprout from "./AddSprout";
+
+interface Sprout {
+  sn: string;
+  type: string;
+}
 
 function MainPage() {
   const [openModal, setOpenModal] = useState(false);
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const [sprouts, setSprouts] = useState<Sprout[]>([]);
 
-  useDialogClickOutside(dialogRef);
+  useEffect(() => {
+    getSprouts();
+  }, []);
+
+  const getSprouts = useCallback(async () => {
+    const res = await fetch("/api/sprouts");
+    const data = await res.json();
+    setSprouts(data);
+  }, []);
+
+  const handleCloseModal = (toRefresh: boolean) => {
+    setOpenModal(false);
+    if (toRefresh) {
+      getSprouts();
+    }
+  };
 
   return (
     <>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <dialog ref={dialogRef}>
-        Test
-        <button>Add test</button>
-      </dialog>
-      <button onClick={() => dialogRef.current?.showModal()}>+</button>
+      {openModal && <AddSprout onClose={handleCloseModal} />}
+      <button onClick={() => setOpenModal(true)}>+</button>
+      <table>
+        <thead>
+          <tr>
+            <th>SN</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sprouts.map((sprout) => (
+            <tr key={sprout.sn}>
+              <td>{sprout.sn}</td>
+              <td>{sprout.type}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 }

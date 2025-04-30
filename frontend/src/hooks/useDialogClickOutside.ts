@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 
-export function useDialogClickOutside(ref: React.RefObject<HTMLDialogElement | null>) {
+export function useDialogClickOutside(
+  ref: React.RefObject<HTMLDialogElement | null>,
+  onClose: (toRefresh: boolean) => void
+) {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const dialog = ref?.current;
@@ -11,7 +14,7 @@ export function useDialogClickOutside(ref: React.RefObject<HTMLDialogElement | n
 
       const clickedOutside = x < left || x > right || y < top || y > bottom;
       if (clickedOutside) {
-        dialog.close();
+        onClose(false);
       }
     }
 

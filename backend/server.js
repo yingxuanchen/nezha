@@ -17,7 +17,7 @@ async function connectDB() {
 app.get("/api/sprouts", async (req, res) => {
   try {
     await connectDB();
-    const sprouts = await db.collection("sprouts").find({}).toArray();
+    const sprouts = await db.collection("sprouts").find({}).sort({ sn: 1 }).toArray();
     res.json(sprouts);
   } catch (error) {
     console.error(error);
@@ -29,6 +29,10 @@ app.post("/api/sprouts", async (req, res) => {
   const { type, sn } = req.body;
   try {
     await connectDB();
+    const existing = await db.collection("sprouts").findOne({ sn });
+    if (existing) {
+      return res.status(400).send("Serial number already exists");
+    }
     await db.collection("sprouts").insertOne({ type, sn });
     res.status(200).send("Serial number added");
   } catch (error) {
