@@ -61,6 +61,7 @@ function MainPage() {
           <input type="checkbox" onClick={() => setSplitSn((prev) => !prev)} />
           <label>分割编码前6位</label>
         </div>
+        <div>总数：{sprouts.length}</div>
       </div>
       <table>
         <thead>
