@@ -45,7 +45,7 @@ function AddSprout({ onClose }: Props) {
 
   return (
     <dialog ref={dialogRef}>
-      <form className="container" onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={handleSubmit}>
         <div>
           <select
             name="type"

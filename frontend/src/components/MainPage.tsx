@@ -32,14 +32,35 @@ function MainPage() {
     }
   };
 
+  const downloadPdf = async () => {
+    try {
+      const response = await fetch(`${backendUrl}/api/pdf`);
+      if (!response.ok) throw new Error("Failed to download PDF");
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "nezha.pdf";
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error(err);
+      alert("下载失败");
+    }
+  };
+
   return (
     <>
       {openModal && <AddSprout onClose={handleCloseModal} />}
       <h3>哪吒芽豆豆编码</h3>
-      <button onClick={() => setOpenModal(true)}>加入已确认编码</button>
-      <div className="checkbox">
-        <input type="checkbox" onClick={() => setSplitSn((prev) => !prev)} />
-        <label>分割编码前6位</label>
+      <div className="container">
+        <button onClick={() => setOpenModal(true)}>加入已确认编码</button>
+        <button onClick={downloadPdf}>下载编码pdf文件</button>
+        <div className="checkbox">
+          <input type="checkbox" onClick={() => setSplitSn((prev) => !prev)} />
+          <label>分割编码前6位</label>
+        </div>
       </div>
       <table>
         <thead>
