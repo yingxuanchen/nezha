@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import AddSprout from "./AddSprout";
 import { backendUrl, types } from "../utils/utils";
 import { useSystemTheme } from "../hooks/useSystemTheme";
+import ScrollToTopButton from "./ScrollToTopButton";
 
 interface Sprout {
   sn: string;
@@ -52,6 +53,7 @@ function MainPage() {
 
   return (
     <>
+      <ScrollToTopButton />
       {openModal && <AddSprout onClose={handleCloseModal} />}
       <h3>哪吒芽豆豆编码</h3>
       <div className="container">
