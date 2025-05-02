@@ -7,13 +7,14 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node --env-file .env --inspect server.js",
+    "start": "nodemon --env-file .env --inspect server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "mongodb": "^6.16.0",
+    "pdfkit": "^0.17.0",
     "pdfkit-table": "^0.1.99"
   }
 }
