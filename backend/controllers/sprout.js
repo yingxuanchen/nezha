@@ -4,6 +4,16 @@ import path from "path";
 
 const FONT_PATH = path.resolve("fonts", "NotoSansSC-Regular.ttf");
 
+export const types = [
+  { name: "少年哪吒", lightBgColor: "pink", darkBgColor: "brown" },
+  { name: "笑笑哪吒", lightBgColor: "bisque", darkBgColor: "darkorange" },
+  { name: "坏坏哪吒", lightBgColor: "lightyellow", darkBgColor: "darkkhaki" },
+  { name: "战斗哪吒", lightBgColor: "palegreen", darkBgColor: "mediumseagreen" },
+  { name: "灵珠版哪吒", lightBgColor: "lavender", darkBgColor: "mediumpurple" },
+  { name: "笑笑敖丙", lightBgColor: "aqua", darkBgColor: "deepskyblue" },
+  { name: "委屈敖丙", lightBgColor: "lightblue", darkBgColor: "steelblue" },
+];
+
 export async function getSprouts(req, res) {
   try {
     const db = getDB();
@@ -91,16 +101,24 @@ export async function exportToPdf(req, res) {
         { label: "编码", property: "sn", width: 100 },
         { label: "款式", property: "type", width: 100 },
       ],
-      datas: sprouts,
+      datas: sprouts.map((sprout) => {
+        const bgColor = types.find((type) => type.name === sprout.type)?.lightBgColor || "transparent";
+        return {
+          sn: sprout.sn,
+          type: sprout.type,
+          options: { backgroundColor: bgColor, backgroundOpacity: 1 },
+        };
+      }),
     };
 
     await doc.table(table, {
-      prepareHeader: () => doc.font("NotoSansSC"),
-      prepareRow: (row, i) => doc.font("NotoSansSC"),
+      hideHeader: true,
+      prepareHeader: () => {},
+      prepareRow: () => doc.font("NotoSansSC"),
     });
     doc.end();
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error fetching serial numbers");
+    res.status(500).send("Error exporting pdf");
   }
 }

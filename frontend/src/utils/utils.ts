@@ -1,4 +1,4 @@
-export const backendUrl = import.meta.env.DEV ? "" : "https://nezha-111c.onrender.com";
+export const backendUrl = import.meta.env.DEV ? "http://localhost:3000" : "https://nezha-111c.onrender.com";
 
 export const types = [
   { name: "少年哪吒", lightBgColor: "pink", darkBgColor: "brown" },
