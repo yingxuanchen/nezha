@@ -13,6 +13,7 @@ function MainPage() {
 
   const [openModal, setOpenModal] = useState(false);
   const [sprouts, setSprouts] = useState<Sprout[]>([]);
+  const [splitSn, setSplitSn] = useState(false);
 
   useEffect(() => {
     getSprouts();
@@ -36,6 +37,10 @@ function MainPage() {
       {openModal && <AddSprout onClose={handleCloseModal} />}
       <h3>哪吒芽豆豆编码</h3>
       <button onClick={() => setOpenModal(true)}>加入已确认编码</button>
+      <div className="checkbox">
+        <input type="checkbox" onClick={() => setSplitSn((prev) => !prev)} />
+        <label>分割编码前6位</label>
+      </div>
       <table>
         <thead>
           <tr>
@@ -50,7 +55,7 @@ function MainPage() {
               type === undefined ? "transparent" : systemTheme === "dark" ? type.darkBgColor : type.lightBgColor;
             return (
               <tr key={sprout.sn} style={{ backgroundColor: bgColor }}>
-                <td>{sprout.sn}</td>
+                <td>{splitSn ? `${sprout.sn.slice(0, 6)}(${sprout.sn.slice(6)})` : sprout.sn}</td>
                 <td>{sprout.type}</td>
               </tr>
             );

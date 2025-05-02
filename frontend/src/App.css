@@ -61,3 +61,12 @@ td {
 table {
   border-collapse: collapse;
 }
+
+.checkbox {
+  * {
+    vertical-align: middle;
+  }
+  input {
+    zoom: 1.5;
+  }
+}
