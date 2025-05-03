@@ -96,6 +96,8 @@ export async function exportToPdf(req, res) {
     doc.registerFont("NotoSansSC", FONT_PATH);
     doc.font("NotoSansSC");
 
+    doc.text("总数: " + sprouts.length + "\n\n");
+
     const table = {
       title: "哪吒芽豆豆编码",
       headers: [
@@ -160,6 +162,8 @@ export async function exportGrouped(req, res) {
 
     doc.registerFont("NotoSansSC", FONT_PATH);
     doc.font("NotoSansSC");
+
+    doc.text("总数: " + allSprouts.length + "\n\n");
 
     for (const [key, lines] of Object.entries(sections)) {
       doc.text(lines.join("\n"));
