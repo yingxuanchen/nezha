@@ -50,30 +50,36 @@ export async function addSprout(req, res) {
 
 export async function addInBulk(req, res) {
   const sns = [
-    55851871, 55851877, 55851919, 55851977, 55852000, 55866646, 55852129, 55852118, 55852298, 55859698, 55864202,
-    55866550, 55866578, 55866858, 55866907, 55866972, 55867217, 55910941, 55911803, 55911992, 56006943, 56018644,
-    56018657, 56018679, 56018733, 56038532, 56056310, 56056244, 57388994, 57389012, 57417998, 57418064, 57418083,
-    57418106, 57418116, 57418132, 57418139, 57418149, 57418176, 57418264, 57419811, 57420565, 57450818, 57450821,
-    57450865, 57450867, 57450931, 57450962, 57450998, 57451050, 57451051, 57451069, 57451079, 57451146, 57451173,
-    57472336, 57472373, 57472429, 57472533, 57472567, 57472594, 57472617, 57488571, 57488595, 57488614, 57488679,
-    57488732, 57489055, 57489078, 57489130, 57489133, 57489158, 57490128, 57490131, 57490168, 57490171, 57602758,
-    57717354, 57719206, 58056315,
+    55858652, 55858722, 55858743, 55859320, 55859366, 55859697, 55864651, 55911040, 55911543, 55911662, 55911800,
+    55918572, 55960033, 55962094, 56007545, 56039390, 56039895, 56040287, 56057128, 57411864, 57411959, 57412042,
+    57439840, 57445487, 57446074, 57446294, 57460823, 57480091, 54797775, 57521879, 57719257, 57572895, 57601685,
+    57766900,
   ];
+
+  let insertedCount = 0;
+  let existingCount = 0;
 
   for (const sn of sns) {
     try {
       const db = getDB();
       const existing = await db.collection("sprouts").findOne({ sn: sn.toString() });
       if (existing) {
+        existingCount++;
         console.error(`Serial number ${sn} already exists`);
       } else {
-        await db.collection("sprouts").insertOne({ type: "少年哪吒", sn: sn.toString(), createdAt: new Date() });
+        await db.collection("sprouts").insertOne({ type: "笑笑哪吒", sn: sn.toString(), createdAt: new Date() });
+        insertedCount++;
         console.log(`Serial number ${sn} added`);
       }
     } catch (error) {
       console.error(error);
     }
   }
+
+  console.log(`total: ${sns.length}`);
+  console.log(`inserted: ${insertedCount}`);
+  console.log(`existing: ${existingCount}`);
+
   res.status(200).send("Bulk serial numbers added");
 }
 
