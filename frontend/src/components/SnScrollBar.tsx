@@ -12,6 +12,7 @@ export default function SerialScrollBar({ groups }: Props) {
     <div
       style={{
         position: "fixed",
+        height: "90%",
         left: "1rem",
         top: "50%",
         transform: "translateY(-50%)",
@@ -31,7 +32,7 @@ export default function SerialScrollBar({ groups }: Props) {
           onClick={() => handleClick(group)}
           title={group}
           style={{
-            height: "1.8rem",
+            height: "1.7rem",
             margin: "6px 0",
             padding: "0 6px",
             background: "#007bff",
