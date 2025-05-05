@@ -4,6 +4,7 @@ import { backendUrl, types } from "../utils/utils";
 import { useSystemTheme } from "../hooks/useSystemTheme";
 import ScrollToTopButton from "./ScrollToTopButton";
 import SnScrollBar from "./SnScrollBar";
+import About from "./About";
 
 interface Sprout {
   sn: string;
@@ -14,9 +15,10 @@ function MainPage() {
   const systemTheme = useSystemTheme();
 
   const [openModal, setOpenModal] = useState(false);
+  const [openAboutModal, setOpenAboutModal] = useState(false);
+
   const [sprouts, setSprouts] = useState<Sprout[]>([]);
   const [splitSn, setSplitSn] = useState(false);
-
   const [groups, setGroups] = useState<string[]>([]);
 
   useEffect(() => {
@@ -81,7 +83,13 @@ function MainPage() {
       <SnScrollBar groups={groups} />
       <ScrollToTopButton />
       {openModal && <AddSprout onClose={handleCloseModal} />}
-      <h3>哪吒芽豆豆编码</h3>
+      {openAboutModal && <About onClose={() => setOpenAboutModal(false)} />}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
+        <h3>哪吒芽豆豆编码</h3>
+        <button onClick={() => setOpenAboutModal(true)} style={{ fontSize: "12px" }}>
+          使用说明
+        </button>
+      </div>
       <div className="container">
         <button onClick={() => setOpenModal(true)}>加入已确认编码</button>
         <div style={{ fontSize: "14px" }}>
