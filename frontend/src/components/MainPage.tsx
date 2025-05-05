@@ -3,6 +3,7 @@ import AddSprout from "./AddSprout";
 import { backendUrl, types } from "../utils/utils";
 import { useSystemTheme } from "../hooks/useSystemTheme";
 import ScrollToTopButton from "./ScrollToTopButton";
+import SnScrollBar from "./SnScrollBar";
 
 interface Sprout {
   sn: string;
@@ -16,6 +17,8 @@ function MainPage() {
   const [sprouts, setSprouts] = useState<Sprout[]>([]);
   const [splitSn, setSplitSn] = useState(false);
 
+  const [groups, setGroups] = useState<string[]>([]);
+
   useEffect(() => {
     getSprouts();
   }, []);
@@ -25,6 +28,10 @@ function MainPage() {
     const data = await res.json();
     setSprouts(data);
   }, []);
+
+  useEffect(() => {
+    setGroups([...new Set(sprouts.map((sprout) => sprout.sn.slice(0, 3)))]);
+  }, [sprouts]);
 
   const handleCloseModal = (toRefresh: boolean) => {
     setOpenModal(false);
@@ -71,12 +78,13 @@ function MainPage() {
 
   return (
     <>
+      <SnScrollBar groups={groups} />
       <ScrollToTopButton />
       {openModal && <AddSprout onClose={handleCloseModal} />}
       <h3>哪吒芽豆豆编码</h3>
       <div className="container">
         <button onClick={() => setOpenModal(true)}>加入已确认编码</button>
-        <div>
+        <div style={{ fontSize: "14px" }}>
           下载编码pdf：
           <button onClick={downloadPdf} style={{ marginRight: "0.5rem" }}>
             编码顺序
@@ -96,12 +104,19 @@ function MainPage() {
             </tr>
           </thead>
           <tbody>
-            {sprouts.map((sprout) => {
+            {sprouts.map((sprout, i) => {
               const type = types.find((type) => type.name === sprout.type);
               const bgColor =
                 type === undefined ? "transparent" : systemTheme === "dark" ? type.darkBgColor : type.lightBgColor;
+
+              const isFirstInGroup = i === 0 || sprout.sn.slice(0, 3) !== sprouts[i - 1].sn.slice(0, 3);
+
               return (
-                <tr key={sprout.sn} style={{ backgroundColor: bgColor }}>
+                <tr
+                  key={sprout.sn}
+                  style={{ backgroundColor: bgColor }}
+                  id={isFirstInGroup ? sprout.sn.slice(0, 3) : undefined}
+                >
                   <td>{splitSn ? `${sprout.sn.slice(0, 6)}(${sprout.sn.slice(6)})` : sprout.sn}</td>
                   <td>{sprout.type}</td>
                 </tr>
