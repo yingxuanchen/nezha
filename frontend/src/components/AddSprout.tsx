@@ -68,6 +68,7 @@ function AddSprout({ onClose }: Props) {
           <input
             name="sn"
             type="text"
+            inputMode="numeric"
             value={sn}
             onChange={(e) => setSn(e.target.value)}
             required
