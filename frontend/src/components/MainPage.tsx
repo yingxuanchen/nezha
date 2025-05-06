@@ -104,7 +104,7 @@ function MainPage() {
           <label>分割编码前6位</label>
         </div>
         <div>总数：{sprouts.length}</div>
-        <table style={{ alignSelf: "end" }}>
+        <table>
           <thead>
             <tr>
               <th>编码</th>
