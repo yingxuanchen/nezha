@@ -84,13 +84,21 @@ function MainPage() {
       <ScrollToTopButton />
       {openModal && <AddSprout onClose={handleCloseModal} />}
       {openAboutModal && <About onClose={() => setOpenAboutModal(false)} />}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
-        <h3>哪吒芽豆豆编码</h3>
-        <button onClick={() => setOpenAboutModal(true)} style={{ fontSize: "12px" }}>
-          使用说明
-        </button>
-      </div>
-      <div className="container">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "0.5rem",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <h3>哪吒芽豆豆编码</h3>
+          <button onClick={() => setOpenAboutModal(true)} style={{ fontSize: "12px" }}>
+            使用说明
+          </button>
+        </div>
+
         <button onClick={() => setOpenModal(true)}>加入已确认编码</button>
         <div style={{ fontSize: "14px" }}>
           下载编码pdf：
@@ -104,34 +112,36 @@ function MainPage() {
           <label>分割编码前6位</label>
         </div>
         <div>总数：{sprouts.length}</div>
-        <table>
-          <thead>
-            <tr>
-              <th>编码</th>
-              <th>款式</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sprouts.map((sprout, i) => {
-              const type = types.find((type) => type.name === sprout.type);
-              const bgColor =
-                type === undefined ? "transparent" : systemTheme === "dark" ? type.darkBgColor : type.lightBgColor;
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>编码</th>
+                <th>款式</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sprouts.map((sprout, i) => {
+                const type = types.find((type) => type.name === sprout.type);
+                const bgColor =
+                  type === undefined ? "transparent" : systemTheme === "dark" ? type.darkBgColor : type.lightBgColor;
 
-              const isFirstInGroup = i === 0 || sprout.sn.slice(0, 3) !== sprouts[i - 1].sn.slice(0, 3);
+                const isFirstInGroup = i === 0 || sprout.sn.slice(0, 3) !== sprouts[i - 1].sn.slice(0, 3);
 
-              return (
-                <tr
-                  key={sprout.sn}
-                  style={{ backgroundColor: bgColor }}
-                  id={isFirstInGroup ? sprout.sn.slice(0, 3) : undefined}
-                >
-                  <td>{splitSn ? `${sprout.sn.slice(0, 6)}(${sprout.sn.slice(6)})` : sprout.sn}</td>
-                  <td>{sprout.type}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                return (
+                  <tr
+                    key={sprout.sn}
+                    style={{ backgroundColor: bgColor }}
+                    id={isFirstInGroup ? sprout.sn.slice(0, 3) : undefined}
+                  >
+                    <td>{splitSn ? `${sprout.sn.slice(0, 6)}(${sprout.sn.slice(6)})` : sprout.sn}</td>
+                    <td>{sprout.type}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );
