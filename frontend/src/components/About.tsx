@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { useDialogClickOutside } from "../hooks/useDialogClickOutside";
 
 interface Props {
   onClose: (toRefresh: boolean) => void;
@@ -12,13 +11,13 @@ function About({ onClose }: Props) {
     dialogRef.current?.showModal();
   }, []);
 
-  useDialogClickOutside(dialogRef, onClose);
-
   return (
     <dialog ref={dialogRef}>
       <p>1. 搜索编码请用浏览器的搜索功能</p>
       <p>2. 输入编码是给已确认款式的编码</p>
       <p>3. 如有错误输入，请到小红书联系我(lemonzchen)，我会从数据库删除</p>
+      <p>4. 编码不应该有重复的，如果发现，可能是别人输入错误，也请跟我说</p>
+      <button onClick={() => onClose(false)}>我知道了</button>
     </dialog>
   );
 }

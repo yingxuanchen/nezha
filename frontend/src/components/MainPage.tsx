@@ -22,6 +22,13 @@ function MainPage() {
   const [groups, setGroups] = useState<string[]>([]);
 
   useEffect(() => {
+    const hasAck = localStorage.getItem("hasAck");
+    if (!hasAck) {
+      setOpenAboutModal(true);
+    }
+  }, []);
+
+  useEffect(() => {
     getSprouts();
   }, []);
 
@@ -40,6 +47,11 @@ function MainPage() {
     if (toRefresh) {
       getSprouts();
     }
+  };
+
+  const handleCloseAboutModal = () => {
+    localStorage.setItem("hasAck", "true");
+    setOpenAboutModal(false);
   };
 
   const downloadPdf = async () => {
@@ -83,7 +95,7 @@ function MainPage() {
       <SnScrollBar groups={groups} />
       <ScrollToTopButton />
       {openModal && <AddSprout onClose={handleCloseModal} />}
-      {openAboutModal && <About onClose={() => setOpenAboutModal(false)} />}
+      {openAboutModal && <About onClose={handleCloseAboutModal} />}
       <div
         style={{
           display: "flex",
@@ -92,14 +104,16 @@ function MainPage() {
           gap: "0.5rem",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <h3>哪吒芽豆豆编码</h3>
           <button onClick={() => setOpenAboutModal(true)} style={{ fontSize: "12px" }}>
             使用说明
           </button>
         </div>
 
-        <button onClick={() => setOpenModal(true)}>加入已确认编码</button>
+        <button onClick={() => setOpenModal(true)} style={{ fontSize: "14px" }}>
+          加入已确认编码
+        </button>
         <div style={{ fontSize: "14px" }}>
           下载编码pdf：
           <button onClick={downloadPdf} style={{ marginRight: "0.5rem" }}>
