@@ -11,6 +11,7 @@ function AddSprout({ onClose }: Props) {
   const [type, setType] = useState("");
 
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const confirmRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     dialogRef.current?.showModal();
@@ -20,6 +21,11 @@ function AddSprout({ onClose }: Props) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    confirmRef.current?.showModal();
+  };
+
+  const addSprout = async () => {
+    confirmRef.current?.close();
     try {
       const res = await fetch(`${backendUrl}/api/sprouts`, {
         method: "POST",
@@ -33,7 +39,7 @@ function AddSprout({ onClose }: Props) {
       }
 
       // for prod
-      alert("成功加入编码！祝你成功抽中想要的芽豆豆！");
+      alert(`成功加入 ${sn} 为 ${type}！祝你成功抽中想要的芽豆豆！`);
       onClose(true);
 
       // for fast insert during dev
@@ -44,43 +50,54 @@ function AddSprout({ onClose }: Props) {
   };
 
   return (
-    <dialog ref={dialogRef}>
-      <form className="form-container" onSubmit={handleSubmit}>
-        <div>
-          <select
-            name="type"
-            required
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            style={{ fontSize: "1rem" }}
-          >
-            <option disabled value="">
-              -- 请选择已确认款式 --
-            </option>
-            {types.map((type) => (
-              <option key={type.name} value={type.name}>
-                {type.name}
+    <>
+      <dialog ref={confirmRef}>
+        <p>
+          确定加入 {sn} 为 {type}?
+        </p>
+        <button onClick={() => confirmRef.current?.close()} style={{ marginRight: "1rem" }}>
+          返回
+        </button>
+        <button onClick={addSprout}>确认</button>
+      </dialog>
+      <dialog ref={dialogRef}>
+        <form className="form-container" onSubmit={handleSubmit}>
+          <div>
+            <select
+              name="type"
+              required
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              style={{ fontSize: "1rem" }}
+            >
+              <option disabled value="">
+                -- 请选择已确认款式 --
               </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <input
-            name="sn"
-            type="text"
-            inputMode="numeric"
-            value={sn}
-            onChange={(e) => setSn(e.target.value)}
-            required
-            pattern="[0-9]{8}"
-            title="Should be 8 digits"
-            style={{ fontSize: "1rem" }}
-            placeholder="编码 (8位数字)"
-          />
-        </div>
-        <button type="submit">加入</button>
-      </form>
-    </dialog>
+              {types.map((type) => (
+                <option key={type.name} value={type.name}>
+                  {type.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <input
+              name="sn"
+              type="text"
+              inputMode="numeric"
+              value={sn}
+              onChange={(e) => setSn(e.target.value)}
+              required
+              pattern="[0-9]{8}"
+              title="Should be 8 digits"
+              style={{ fontSize: "1rem" }}
+              placeholder="编码 (8位数字)"
+            />
+          </div>
+          <button type="submit">加入</button>
+        </form>
+      </dialog>
+    </>
   );
 }
 
