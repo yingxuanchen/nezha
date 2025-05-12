@@ -39,7 +39,7 @@ function MainPage() {
   }, []);
 
   useEffect(() => {
-    setGroups([...new Set(sprouts.map((sprout) => sprout.sn.slice(0, 3)))]);
+    setGroups([...new Set(sprouts.map((sprout) => sprout.sn.slice(0, 4)))]);
   }, [sprouts]);
 
   const handleCloseModal = (toRefresh: boolean) => {
@@ -140,13 +140,13 @@ function MainPage() {
                 const bgColor =
                   type === undefined ? "transparent" : systemTheme === "dark" ? type.darkBgColor : type.lightBgColor;
 
-                const isFirstInGroup = i === 0 || sprout.sn.slice(0, 3) !== sprouts[i - 1].sn.slice(0, 3);
+                const isFirstInGroup = i === 0 || sprout.sn.slice(0, 4) !== sprouts[i - 1].sn.slice(0, 4);
 
                 return (
                   <tr
                     key={sprout.sn}
                     style={{ backgroundColor: bgColor }}
-                    id={isFirstInGroup ? sprout.sn.slice(0, 3) : undefined}
+                    id={isFirstInGroup ? sprout.sn.slice(0, 4) : undefined}
                   >
                     <td>{splitSn ? `${sprout.sn.slice(0, 6)}(${sprout.sn.slice(6)})` : sprout.sn}</td>
                     <td>{sprout.type}</td>
