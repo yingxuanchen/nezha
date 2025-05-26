@@ -5,6 +5,7 @@ import { useSystemTheme } from "../hooks/useSystemTheme";
 import ScrollToTopButton from "./ScrollToTopButton";
 import SnScrollBar from "./SnScrollBar";
 import About from "./About";
+import Notice from "./Notice";
 
 interface Sprout {
   sn: string;
@@ -16,6 +17,7 @@ function MainPage() {
 
   const [openModal, setOpenModal] = useState(false);
   const [openAboutModal, setOpenAboutModal] = useState(false);
+  const [openNoticeModal] = useState(true);
 
   const [sprouts, setSprouts] = useState<Sprout[]>([]);
   const [splitSn, setSplitSn] = useState(false);
@@ -89,6 +91,9 @@ function MainPage() {
       alert("下载失败");
     }
   };
+  const handleGoToNewSite = () => {
+    window.location.replace("https://yadou.onrender.com");
+  };
 
   return (
     <>
@@ -96,6 +101,7 @@ function MainPage() {
       <ScrollToTopButton />
       {openModal && <AddSprout onClose={handleCloseModal} />}
       {openAboutModal && <About onClose={handleCloseAboutModal} />}
+      {openNoticeModal && <Notice onClose={handleGoToNewSite} />}
       <div
         style={{
           display: "flex",
