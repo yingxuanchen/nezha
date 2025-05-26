@@ -35,9 +35,9 @@ function MainPage() {
   }, []);
 
   const getSprouts = useCallback(async () => {
-    const res = await fetch(`${backendUrl}/api/sprouts`);
-    const data = await res.json();
-    setSprouts(data);
+    // const res = await fetch(`${backendUrl}/api/sprouts`);
+    // const data = await res.json();
+    setSprouts([]);
   }, []);
 
   useEffect(() => {
