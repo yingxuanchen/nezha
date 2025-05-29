@@ -14,7 +14,7 @@ function Notice({ onClose }: Props) {
   return (
     <dialog ref={dialogRef}>
       <p>请前往新网址 https://yadou.onrender.com</p>
-      <p>此旧网址将在6月2日停用</p>
+      <p>此旧网址将在5月31日停用</p>
       <button onClick={onClose}>前往新网址</button>
     </dialog>
   );

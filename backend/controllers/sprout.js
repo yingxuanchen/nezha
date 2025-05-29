@@ -110,7 +110,7 @@ export async function exportToPdf(req, res) {
     doc.font("NotoSansSC");
 
     doc.text("请使用新网址 https://yadou.onrender.com" + "\n");
-    doc.text("此pdf链接将在6月2日停用" + "\n\n");
+    doc.text("此pdf链接将在5月31日停用" + "\n\n");
     doc.text("总数: " + sprouts.length + "\n\n");
 
     const table = {
