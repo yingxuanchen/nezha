@@ -13,9 +13,12 @@ function Notice({ onClose }: Props) {
 
   return (
     <dialog ref={dialogRef}>
+      <p>此旧网址已经停用</p>
       <p>请前往新网址 https://yadou.onrender.com</p>
-      <p>此旧网址将在5月31日停用</p>
-      <button onClick={onClose}>前往新网址</button>
+      <p>5月31日公告：由于服务器这个月的用时顶限已超过，新网站今天暂时不能用，请先到百度网盘下载pdf</p>
+      <p>提取码: 0699</p>
+      {/* <button onClick={onClose}>前往新网址</button> */}
+      <button onClick={onClose}>前往百度网盘</button>
     </dialog>
   );
 }
