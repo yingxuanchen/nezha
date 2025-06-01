@@ -92,8 +92,8 @@ function MainPage() {
     }
   };
   const handleGoToNewSite = () => {
-    // window.location.replace("https://yadou.onrender.com");
-    window.location.href = "https://pan.baidu.com/s/12B5ymASS0h5RYoeQEX4pzg?pwd=0699";
+    window.location.replace("https://yadou.onrender.com");
+    // window.location.href = "https://pan.baidu.com/s/12B5ymASS0h5RYoeQEX4pzg?pwd=0699";
   };
 
   return (
